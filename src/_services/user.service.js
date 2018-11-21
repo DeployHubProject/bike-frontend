@@ -96,7 +96,7 @@ function getBikeFrontWheel(user) {
         method: 'GET',
         headers: authHeader(user)
     };
-    return fetch( geturl('BIKE_FRONT_WHEEL','/getbikefrontwheel', requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_FRONT_WHEEL','/getbikefrontwheel'), requestOptions).then(handleResponse);
 }
 
 function getBikeRearWheel(user) {
@@ -114,7 +114,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch( geturl('BIKE_LOGIN','/users/${id}', requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_LOGIN','/users/${id}'), requestOptions).then(handleResponse);
 }
 
 function update(user) {
