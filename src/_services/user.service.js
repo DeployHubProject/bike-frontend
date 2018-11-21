@@ -15,14 +15,30 @@ export const userService = {
     delete: _delete
 };
 
+function geturl(servicename,uri)
+{
+ if (process.env.includes(servicename + '_PORT'))
+   return process.env[servicename + '_PORT'].replace('tcp:','http:') + uri;
+ else if (servicename.equals('BIKE_LOGIN'))
+   return 'http://docker.for.mac.localhost:38080' + uri;  
+ else if (servicename.equals('BIKE_FRAME'))
+   return 'http://docker.for.mac.localhost:38081' + uri; 
+ else if (servicename.equals('BIKE_FRONT_WHEEL'))
+   return 'http://docker.for.mac.localhost:38083' + uri;   
+ else if (servicename.equals('BIKE_REAR_WHEEL'))
+   return 'http://docker.for.mac.localhost:38084' + uri;  
+ else if (servicename.equals('BIKE_SEAT'))
+   return 'http://docker.for.mac.localhost:38082' + uri;             
+}
+
 function login(username, password) {
     const requestOptions = {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ username, password })
     };
-
-    return fetch(`http://docker.for.mac.localhost:38080/users/authenticate`, requestOptions)
+    
+    return fetch( geturl('BIKE_LOGIN','/users/authenticate'), requestOptions)
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
@@ -47,7 +63,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`http://docker.for.mac.localhost:38080/users/register`, requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_LOGIN', '/users/register'), requestOptions).then(handleResponse);
 }
 
 function getAll(user) {
@@ -56,7 +72,7 @@ function getAll(user) {
         headers: authHeader(user)
     };
 
-    return fetch(`http://docker.for.mac.localhost:38080/users`, requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_LOGIN', '/users'), requestOptions).then(handleResponse);
 }
 
 function getBikeFrame(user) {
@@ -64,7 +80,7 @@ function getBikeFrame(user) {
         method: 'GET',
         headers: authHeader(user)
     };
-    return fetch(`http://docker.for.mac.localhost:38081/getbikeframe`, requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_FRAME','/getbikeframe'), requestOptions).then(handleResponse);
 }
 
 function getBikeSeat(user) {
@@ -72,7 +88,7 @@ function getBikeSeat(user) {
         method: 'GET',
         headers: authHeader(user)
     };
-    return fetch(`http://docker.for.mac.localhost:38082/getbikeseat`, requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_SEAT','/getbikeseat'), requestOptions).then(handleResponse);
 }
 
 function getBikeFrontWheel(user) {
@@ -80,7 +96,7 @@ function getBikeFrontWheel(user) {
         method: 'GET',
         headers: authHeader(user)
     };
-    return fetch(`http://docker.for.mac.localhost:38083/getbikefrontwheel`, requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_FRONT_WHEEL','/getbikefrontwheel', requestOptions).then(handleResponse);
 }
 
 function getBikeRearWheel(user) {
@@ -88,7 +104,7 @@ function getBikeRearWheel(user) {
         method: 'GET',
         headers: authHeader(user)
     };
-    return fetch(`http://docker.for.mac.localhost:38084/getbikerearwheel`, requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_REAR_WHEEL','/getbikerearwheel'), requestOptions).then(handleResponse);
 }
 
 
@@ -98,7 +114,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch(`http://docker.for.mac.localhost:38080/users/${id}`, requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_LOGIN','/users/${id}', requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -108,7 +124,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch(`http://docker.for.mac.localhost:38080/users/${user.id}`, requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_LOGIN','/users/${user.id}'), requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -118,7 +134,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch(`http://docker.for.mac.localhost:38080/users/${id}`, requestOptions).then(handleResponse);
+    return fetch( geturl('BIKE_LOGIN','/users/${id}'), requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
