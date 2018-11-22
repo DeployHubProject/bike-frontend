@@ -15,39 +15,10 @@ export const userService = {
     delete: _delete
 };
 
-function geturl(servicename,uri)
+function geturl(uri)
 {
- var url = "";
- console.log(window.location.href);
- console.log(servicename);
+ var url = window.location.protocol+'//'+window.location.hostname+(window.location.port ? ':'+window.location.port: '') + uri;
 
- if ((servicename + '_PORT') in process.env)
- {
-   url = process.env[servicename + '_PORT'].replace('tcp:','http:') + uri;
- }  
- else 
- {
-  switch (servicename) 
-  {  
-   case 'BIKE_LOGIN':
-     url = 'http://docker.for.mac.localhost:38080' + uri;  
-     break;
-   case 'BIKE_FRAME':
-     url = 'http://docker.for.mac.localhost:38081' + uri; 
-     break;
-   case 'BIKE_FRONT_WHEEL':
-     url = 'http://docker.for.mac.localhost:38083' + uri; 
-     break;  
-   case 'BIKE_REAR_WHEEL':
-     url = 'http://docker.for.mac.localhost:38084' + uri;  
-     break;
-   case 'BIKE_SEAT':
-     url = 'http://docker.for.mac.localhost:38082' + uri;  
-     break;
-   default:
-     break;
-  }
-}
   console.log(url);
   return url;
 }
@@ -59,7 +30,7 @@ function login(username, password) {
         body: JSON.stringify({ username, password })
     };
     
-    return fetch( geturl('BIKE_LOGIN','/users/authenticate'), requestOptions)
+    return fetch( geturl('/users/authenticate'), requestOptions)
         .then(handleResponse)
         .then(user => {
             // login successful if there's a jwt token in the response
@@ -84,7 +55,7 @@ function register(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch( geturl('BIKE_LOGIN', '/users/register'), requestOptions).then(handleResponse);
+    return fetch( geturl('/users/register'), requestOptions).then(handleResponse);
 }
 
 function getAll(user) {
@@ -93,7 +64,7 @@ function getAll(user) {
         headers: authHeader(user)
     };
 
-    return fetch( geturl('BIKE_LOGIN', '/users'), requestOptions).then(handleResponse);
+    return fetch( geturl('/users'), requestOptions).then(handleResponse);
 }
 
 function getBikeFrame(user) {
@@ -101,7 +72,7 @@ function getBikeFrame(user) {
         method: 'GET',
         headers: authHeader(user)
     };
-    return fetch( geturl('BIKE_FRAME','/getbikeframe'), requestOptions).then(handleResponse);
+    return fetch( geturl('/getbikeframe'), requestOptions).then(handleResponse);
 }
 
 function getBikeSeat(user) {
@@ -109,7 +80,7 @@ function getBikeSeat(user) {
         method: 'GET',
         headers: authHeader(user)
     };
-    return fetch( geturl('BIKE_SEAT','/getbikeseat'), requestOptions).then(handleResponse);
+    return fetch( geturl('/getbikeseat'), requestOptions).then(handleResponse);
 }
 
 function getBikeFrontWheel(user) {
@@ -117,7 +88,7 @@ function getBikeFrontWheel(user) {
         method: 'GET',
         headers: authHeader(user)
     };
-    return fetch( geturl('BIKE_FRONT_WHEEL','/getbikefrontwheel'), requestOptions).then(handleResponse);
+    return fetch( geturl('/getbikefrontwheel'), requestOptions).then(handleResponse);
 }
 
 function getBikeRearWheel(user) {
@@ -125,7 +96,7 @@ function getBikeRearWheel(user) {
         method: 'GET',
         headers: authHeader(user)
     };
-    return fetch( geturl('BIKE_REAR_WHEEL','/getbikerearwheel'), requestOptions).then(handleResponse);
+    return fetch( geturl('/getbikerearwheel'), requestOptions).then(handleResponse);
 }
 
 
@@ -135,7 +106,7 @@ function getById(id) {
         headers: authHeader()
     };
 
-    return fetch( geturl('BIKE_LOGIN','/users/${id}'), requestOptions).then(handleResponse);
+    return fetch( geturl('/users/${id}'), requestOptions).then(handleResponse);
 }
 
 function update(user) {
@@ -145,7 +116,7 @@ function update(user) {
         body: JSON.stringify(user)
     };
 
-    return fetch( geturl('BIKE_LOGIN','/users/${user.id}'), requestOptions).then(handleResponse);
+    return fetch( geturl('/users/${user.id}'), requestOptions).then(handleResponse);
 }
 
 // prefixed function name with underscore because delete is a reserved word in javascript
@@ -155,7 +126,7 @@ function _delete(id) {
         headers: authHeader()
     };
 
-    return fetch( geturl('BIKE_LOGIN','/users/${id}'), requestOptions).then(handleResponse);
+    return fetch( geturl('/users/${id}'), requestOptions).then(handleResponse);
 }
 
 function handleResponse(response) {
