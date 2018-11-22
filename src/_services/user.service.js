@@ -18,7 +18,7 @@ export const userService = {
 function geturl(servicename,uri)
 {
  var url = "";
- console.log(process.env);
+ console.log(window.location.href);
  console.log(servicename);
 
  if ((servicename + '_PORT') in process.env)
