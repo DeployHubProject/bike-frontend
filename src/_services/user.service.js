@@ -17,7 +17,7 @@ export const userService = {
 
 function geturl(servicename,uri)
 {
- url = "";
+ var url = "";
  console.log(process.env);
  console.log(servicename);
 
