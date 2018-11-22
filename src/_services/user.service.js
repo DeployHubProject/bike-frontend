@@ -17,7 +17,7 @@ export const userService = {
 
 function geturl(servicename,uri)
 {
- if (process.env.includes(servicename + '_PORT'))
+ if ((servicename + '_PORT') in process.env)
    return process.env[servicename + '_PORT'].replace('tcp:','http:') + uri;
  else if (servicename.equals('BIKE_LOGIN'))
    return 'http://docker.for.mac.localhost:38080' + uri;  
