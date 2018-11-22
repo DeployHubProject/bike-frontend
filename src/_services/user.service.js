@@ -17,18 +17,39 @@ export const userService = {
 
 function geturl(servicename,uri)
 {
+ url = "";
+ console.log(process.env);
+ console.log(servicename);
+
  if ((servicename + '_PORT') in process.env)
-   return process.env[servicename + '_PORT'].replace('tcp:','http:') + uri;
- else if (servicename.equals('BIKE_LOGIN'))
-   return 'http://docker.for.mac.localhost:38080' + uri;  
- else if (servicename.equals('BIKE_FRAME'))
-   return 'http://docker.for.mac.localhost:38081' + uri; 
- else if (servicename.equals('BIKE_FRONT_WHEEL'))
-   return 'http://docker.for.mac.localhost:38083' + uri;   
- else if (servicename.equals('BIKE_REAR_WHEEL'))
-   return 'http://docker.for.mac.localhost:38084' + uri;  
- else if (servicename.equals('BIKE_SEAT'))
-   return 'http://docker.for.mac.localhost:38082' + uri;             
+ {
+   url = process.env[servicename + '_PORT'].replace('tcp:','http:') + uri;
+ }  
+ else 
+ {
+  switch (servicename) 
+  {  
+   case 'BIKE_LOGIN':
+     url = 'http://docker.for.mac.localhost:38080' + uri;  
+     break;
+   case 'BIKE_FRAME':
+     url = 'http://docker.for.mac.localhost:38081' + uri; 
+     break;
+   case 'BIKE_FRONT_WHEEL':
+     url = 'http://docker.for.mac.localhost:38083' + uri; 
+     break;  
+   case 'BIKE_REAR_WHEEL':
+     url = 'http://docker.for.mac.localhost:38084' + uri;  
+     break;
+   case 'BIKE_SEAT':
+     url = 'http://docker.for.mac.localhost:38082' + uri;  
+     break;
+   default:
+     break;
+  }
+}
+  console.log(url);
+  return url;
 }
 
 function login(username, password) {
