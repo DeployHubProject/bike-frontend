@@ -25,6 +25,7 @@ module.exports = {
     })],
     devServer: {
         historyApiFallback: true,
+        disableHostCheck: true,
         host: '0.0.0.0'
     },
     externals: {
