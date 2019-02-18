@@ -9,6 +9,8 @@ spec:
       labels:
         app: {{ include "bike-frontend.name" . }}
         version: {{ include "bike-frontend.name" . }}-{{ .Values.image.version }}
+        dockersha: {{ .Values.DockerSha }}
+        gitcommit: {{ .Values.GitCommit }}
     spec:
       containers:
         - name: {{ include "bike-frontend.name" . }}
