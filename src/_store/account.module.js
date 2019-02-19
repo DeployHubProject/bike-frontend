@@ -28,8 +28,6 @@ const actions = {
     },
     logout({ commit }) {
         userService.logout();
-        state = { status: {}, user: null, bikeframe: null, bikefront: null, bikerear: null, bikeseat: null };
-        commit('logout');
     },
     register({ dispatch, commit }, user) {
         commit('registerRequest', user);
@@ -105,6 +103,10 @@ const mutations = {
     logout(state) {
         state.status = {};
         state.user = null;
+								state.bikeframe = null;
+								state.bikefront = null;
+								state.bikerear  = null;
+								state.bikeseat  = null;
     },
     registerRequest(state, user) {
         state.status = { registering: true };
