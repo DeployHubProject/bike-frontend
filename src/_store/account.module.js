@@ -29,7 +29,6 @@ const actions = {
     logout({ commit }) {
         userService.logout();
         state = { status: {}, user: null, bikeframe: null, bikefront: null, bikerear: null, bikeseat: null };
-        user = null;
         commit('logout');
     },
     register({ dispatch, commit }, user) {
