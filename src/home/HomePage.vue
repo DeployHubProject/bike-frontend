@@ -3,16 +3,16 @@
         <h5 style="margin-bottom:30px">You are logged in as {{account.user.username}} with the {{account.user.feature}} feature.</h5>
      <div id="bike" style="height: 550px;">   
     <div id="bike-frame">
-             <img :src="account.bikeframe" >
+             <img :src="user.bikeframe" :key="user.bikeframe">
 	</div>
     <div id="bike-seat" style="position:relative;top:-480px;left:184px">
-             <img :src="account.bikeseat" >
+             <img :src="user.bikeseat" :key="user.bikeseat">
 	</div>
        <div id="bike-front" style="position:relative;top:-442px;left:469px">
-             <img :src="account.bikefront" >
+             <img :src="user.bikefront" :key="user.bikefront">
 	</div>
     <div id="bike-rear" style="position:relative;top:-736px;left:49px">
-             <img :src="account.bikerear" >
+             <img :src="user.bikerear" :key="user.bikerear">
 	</div>
     </div>
     <div>

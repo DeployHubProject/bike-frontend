@@ -49,7 +49,6 @@ const actions = {
             );
     },
     getUserDetails({dispatch,commit}){
-					   Vue.forceUpdate();
         userService.getBikeFrame(user).then(
             img => {
                 commit('bikeFrame', img);
@@ -73,7 +72,6 @@ const actions = {
                 commit('bikeRear', img4);
             }
         );
-								Vue.forceUpdate();
     }
 };
 
