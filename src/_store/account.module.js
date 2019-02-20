@@ -17,6 +17,7 @@ const actions = {
                     dispatch('getUserDetails');
 
                     router.push('/');
+																				router.go(0);
                 },
                 error => {
                     commit('loginFailure', error);
