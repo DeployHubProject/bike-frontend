@@ -10,6 +10,7 @@ spec:
         app: {{ include "bike-frontend.name" . }}
         version: {{ .Values.image.version }}
         dockersha: {{ .Values.DockerSha }}
+        dockerbld: {{ .Values.DockerBuild }}    
         gitcommit: {{ .Values.GitCommit }}
     spec:
       containers:
